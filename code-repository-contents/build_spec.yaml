@@ -1,0 +1,34 @@
+version: 0.1
+component: build
+timeoutInSeconds: 1000
+shell: bash
+
+env:
+  vaultVariables:
+    OCIR_PASSWORD: "ocid1.vaultsecret.oc1.uk-london-1.insert-secret-ocid-here-or-else-suffer" 
+
+steps:
+  - type: Command
+    name: "Docker Login"
+    command: |
+      DOCKER_USER="${NAMESPACE}/${USERNAME}"
+      echo "${OCIR_PASSWORD}" | docker login ${DOCKER_REGISTRY} -u "${DOCKER_USER}" --password-stdin
+
+  - type: Command
+    name: "Build Docker Image"
+    command: |
+      cd ${OCI_PRIMARY_SOURCE_DIR}
+      pwd
+      ls -la
+      echo "Building image with tag: ${IMAGE_TAG}"
+      docker build -t ${DOCKER_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
+  
+  - type: Command
+    name: "Push Docker Image"
+    command: |
+      docker push ${DOCKER_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}
+
+outputArtifacts:
+  - name: docker_image
+    type: DOCKER_IMAGE
+    location: ${DOCKER_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}
