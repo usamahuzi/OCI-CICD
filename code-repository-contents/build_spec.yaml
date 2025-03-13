@@ -18,8 +18,6 @@ steps:
     name: "Build Docker Image"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}
-      pwd
-      ls -la
       echo "Building image with tag: ${IMAGE_TAG}"
       docker build -t ${DOCKER_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
   
