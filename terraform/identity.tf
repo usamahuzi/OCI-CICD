@@ -8,8 +8,8 @@ resource "oci_identity_dynamic_group" "devops_dynamic_group" {
 resource "oci_identity_policy" "devops_policy" {
     compartment_id = var.tenancy_ocid
     description = "DevOps policy"
-    name = "DevOpsPolicy"
+    name = var.policy_name
     statements = [
-        "Allow dynamic-group ${oci_identity_dynamic_group.DevOps_dynamic_group.name} to manage all-resources in compartment ${var.compartment_id}"
+        "Allow dynamic-group ${oci_identity_dynamic_group.devops_dynamic_group.name} to manage all-resources in compartment ${var.compartment_id}"
     ]
 }

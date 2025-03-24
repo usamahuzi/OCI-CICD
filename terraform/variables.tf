@@ -29,11 +29,18 @@ variable "key_path" {
 }
 
 ## DevOps Project
+variable "dynamic_group_name" {
+  type          = string
+  default       = "put-your-dynamic-group-name-here"
+}
+variable "policy_name" {
+  type          = string
+  default       = "put-your-policy-name-here"
+}
 variable "topic_name" {
   type          = string
   default       = "put-your-topic-name-here"
 }
-
 variable "project_name"{
   type          = string
   default       = "put-your-project-name-here"
