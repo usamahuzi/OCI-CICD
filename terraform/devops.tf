@@ -37,25 +37,13 @@ resource "oci_devops_build_pipeline" "devops_build_pipeline" {
     display_name = var.build_pipeline_name
     build_pipeline_parameters {
         items {
-            default_value = var.username
-            name          = "USERNAME"
-        }
-        items {
             default_value = var.image_tag
             name          = "IMAGE_TAG"            
         }
         items {
             default_value = var.image_name
             name          = "IMAGE_NAME"
-        }
-        items {
-            default_value = data.oci_objectstorage_namespace.current.namespace
-            name          = "NAMESPACE"
-        }
-        items {
-            default_value = var.registry_domain
-            name          = "DOCKER_REGISTRY"
-        }        
+        }   
     }
 }
 
